@@ -1,0 +1,9 @@
+.streamlit/secrets.toml
+audit_log.jsonl
+risk_engine.db
+rag_index/
+__pycache__/
+*.pyc
+.env
+data/lending_club_raw/
+data/lending_club_prepared.csv

@@ -1,0 +1,22 @@
+{
+	"folders": [
+		{
+			"path": "."
+		},
+		{
+			"path": "../data"
+		},
+		{
+			"path": "../model_artifacts"
+		},
+		{
+			"path": "../policy_docs"
+		},
+		{
+			"path": "../rag"
+		},
+		{
+			"path": ".."
+		}
+	]
+}
