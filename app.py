@@ -22,8 +22,14 @@ import streamlit as st
 # On Streamlit Community Cloud, secrets are provided via st.secrets rather
 # than a shell environment variable. Bridge the two so the rest of the
 # codebase (gemini_client.py etc.) doesn't need to know the difference.
-if "GEMINI_API_KEY" in st.secrets:
-    os.environ["GEMINI_API_KEY"] = st.secrets["GEMINI_API_KEY"]
+# Wrapped in try/except because st.secrets raises an exception (rather than
+# just being empty) when no secrets.toml file exists at all -- which is the
+# normal case for local runs that use an environment variable instead.
+try:
+    if "GEMINI_API_KEY" in st.secrets:
+        os.environ["GEMINI_API_KEY"] = st.secrets["GEMINI_API_KEY"]
+except Exception:
+    pass  # no secrets.toml present -- fine, we'll use the environment variable instead
 
 from main import print_report, process_application  # noqa: E402
 from schemas import StructuredMetrics  # noqa: E402
@@ -114,6 +120,16 @@ with tab_score:
 
         a, d = result.risk_assessment, result.routing_decision
         tier_color = TIER_COLORS.get(d.risk_tier, "#888888")
+
+        if metrics.nsf_events_3m != result.extracted_data.nsf_events_detected:
+            st.warning(
+                f"Heads up: you entered **{metrics.nsf_events_3m} NSF events** in the "
+                f"structured form, but the document-extraction layer found "
+                f"**{result.extracted_data.nsf_events_detected}** mentioned in the pasted "
+                f"document text. These are read independently (form field vs. document "
+                f"text) -- edit the document text above to match if you want them aligned, "
+                f"or leave as-is to test how the model handles conflicting signals."
+            )
 
         st.markdown("---")
         c1, c2, c3 = st.columns(3)
