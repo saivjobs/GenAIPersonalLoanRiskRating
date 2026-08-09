@@ -143,6 +143,10 @@ streamlit run app.py
 ```
 Opens at `http://localhost:8501`.
 
+Combined project documentation and assets: a single-file PDF containing the README, presentation guide, technical deep dive, executive summary, and architecture source is available at:
+
+- [COMBINED_DOCUMENT.pdf](COMBINED_DOCUMENT.pdf#L1)
+
 **Deploy for free on Streamlit Community Cloud (recommended for sharing):**
 1. Push this repo to GitHub (see below).
 2. Go to share.streamlit.io, sign in with GitHub.

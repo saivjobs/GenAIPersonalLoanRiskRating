@@ -8,7 +8,7 @@ import os
 
 from google import genai
 
-MODEL = os.environ.get("RISK_ENGINE_MODEL", "gemini-flash-latest")
+MODEL = os.environ.get("RISK_ENGINE_MODEL", "gemini-flash-lite-latest")
 
 _client = None
 
